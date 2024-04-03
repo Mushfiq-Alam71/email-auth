@@ -47,7 +47,7 @@ const Register = () => {
 
     return (
         <div >
-            <div className="text-center py-4"><button className='text-3xl'>Register</button></div>
+
             <div className="w-full max-w-md p-8 space-y-3 rounded-xl   border-2 ">
                 <h1 className="text-2xl font-bold text-center">Register</h1>
                 <form action="" onSubmit={handleRegister} className="space-y-6">
@@ -71,11 +71,8 @@ const Register = () => {
                                 {showPassword ? <FaEyeSlash /> : <FaEye />}
                             </span>
                         </div>
-                        <div className="flex justify-end text-xs dark:text-white">
-                            <a rel="noopener noreferrer" href="#">Forgot Password?</a>
-                        </div>
                     </div>
-                    <button className="block w-full p-3 text-center rounded-sm dark:text-gray-50 dark:bg-violet-600">Sign in</button>
+                    <button className="block w-full p-3 text-center rounded-sm dark:text-gray-50 dark:bg-violet-600">Register</button>
                 </form>
 
                 {
@@ -109,8 +106,8 @@ const Register = () => {
                         </svg>
                     </button>
                 </div>
-                <p className="text-xs text-center sm:px-6 dark:text-white">Don't have an account?
-                    <NavLink to='/login' rel="noopener noreferrer" href="#" className="underline dark:text-white pl-1">Sign in</NavLink>
+                <p className="text-xs text-center sm:px-6 dark:text-white">Don&#39;t have an account?
+                    <NavLink to='/login' rel="noopener noreferrer" href="#" className="underline dark:text-white pl-1">Sign up</NavLink>
                 </p>
             </div>
         </div>
