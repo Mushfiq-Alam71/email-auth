@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
 import { NavLink } from "react-router-dom";
 import auth from "../firebase/firebase.config";
 import { useState } from "react";
@@ -14,9 +14,10 @@ const Register = () => {
 
     const handleRegister = e => {
         e.preventDefault();
+        const name = e.target.name.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
-        console.log(email, password);
+        console.log(name, email, password);
 
         if (password.length < 6) {
             setRegisterError('Password should be at least 6 characters or longer');
@@ -37,6 +38,23 @@ const Register = () => {
             .then(result => {
                 console.log(result.user);
                 setRegisterSuccess('User registered successfully!!');
+
+                // update profile
+                updateProfile(result.user, {
+                    displayName: name,
+                    photoURL: "https://example.com/jane-q-user/profile.jpg"
+                })
+                    .then(() => {
+                        console.log('profile updated successfully');
+                    })
+                    .catch(error => {
+                        console.log(error.message);
+                    })
+
+                sendEmailVerification(result.user)
+                    .then(() => {
+                        alert('pls verify your email');
+                    })
             })
             .catch(error => {
                 console.error(error);
@@ -51,6 +69,10 @@ const Register = () => {
             <div className="w-full max-w-md p-8 space-y-3 rounded-xl   border-2 ">
                 <h1 className="text-2xl font-bold text-center">Register</h1>
                 <form action="" onSubmit={handleRegister} className="space-y-6">
+                    <div className="space-y-1 text-sm">
+                        <label className="block dark:text-white">Name</label>
+                        <input type="text" name="name" id="name" placeholder="Your name" className="w-full px-4 py-3 rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600" />
+                    </div>
                     <div className="space-y-1 text-sm">
                         <label className="block dark:text-white">Email</label>
                         <input type="email" name="email" id="email" placeholder="Email" className="w-full px-4 py-3 rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600" />
